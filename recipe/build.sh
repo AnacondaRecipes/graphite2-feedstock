@@ -19,7 +19,7 @@ fi
 mkdir build
 cd build
 cmake "${cmake_args[@]}" ..
-make -j$CPU_COUNT VERBOSE=1
+make -j${CPU_COUNT} ${VERBOSE_CM}
 # make test -- these do not pass
 make install
 

@@ -11,9 +11,12 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  detect_binary_files_with_prefix: true
+  number: 1
   skip: true  # [win]
+  run_exports:
+    # Not sure if this is same, but https://abi-laboratory.pro/tracker/timeline/graphite/
+    - {{ pin_subpackage('graphite2') }}
+
 
 requirements:
   build:

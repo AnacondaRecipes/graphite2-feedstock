@@ -1,6 +1,6 @@
 {% set name = "graphite2" %}
-{% set version = "1.3.12" %}
-{% set sha256 = "cd9530c16955c181149f9af1f13743643771cb920c75a04c95c77c871a2029d0" %}
+{% set version = "1.3.13" %}
+{% set sha256 = "dd63e169b0d3cf954b397c122551ab9343e0696fb2045e1b326db0202d875f06" %}
 
 package:
   name: {{ name|lower }}
@@ -11,7 +11,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win]
   run_exports:
     # Not sure if this is same, but https://abi-laboratory.pro/tracker/timeline/graphite/

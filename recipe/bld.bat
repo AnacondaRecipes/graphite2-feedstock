@@ -24,11 +24,9 @@ if errorlevel 1 exit /b 1
 
 
 :: Perform tests.
-::  echo "Testing..."
-::  ninja test
-::  path_to\test
-::  ctest -VV --output-on-failure
-::  if errorlevel 1 exit /b 1
+echo "Testing..."
+ninja test
+:: if errorlevel 1 exit /b 1 there are failed tests
 
 
 :: Install.

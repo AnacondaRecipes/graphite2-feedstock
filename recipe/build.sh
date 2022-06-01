@@ -1,27 +1,41 @@
-#! /bin/bash
+#!/bin/bash
+echo "Building ${PKG_NAME}."
 
-set -e
 
-cmake_args=(
-    -DCMAKE_BUILD_TYPE=Release
-    -DCMAKE_COLOR_MAKEFILE=OFF
-    -DCMAKE_INSTALL_PREFIX=$PREFIX
-)
+# Isolate the build.
+mkdir -p Build-${PKG_NAME}
+cd Build-${PKG_NAME} || exit 1
 
-if [ $(uname) = Darwin ] ; then
-    cmake_args+=(
-        -DCMAKE_CXX_FLAGS="$CXXFLAGS -stdlib=libc++"
-	-DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET
-	-DCMAKE_OSX_SYSROOT=/
-    )
-fi
 
-mkdir build
-cd build
-cmake "${cmake_args[@]}" ..
-make -j${CPU_COUNT} ${VERBOSE_CM}
-# make test -- these do not pass
-make install
+# Generate the build files.
+echo "Generating the build files..."
+cmake .. ${CMAKE_ARGS} \
+      -GNinja \
+      -DCMAKE_PREFIX_PATH=$PREFIX \
+      -DCMAKE_INSTALL_PREFIX=$PREFIX \
+      -DCMAKE_BUILD_TYPE=Release \
+
+
+# Build.
+echo "Building..."
+ninja -j${CPU_COUNT} || exit 1
+
+
+# Perform tests.
+#  echo "Testing..."
+#  ninja test || exit 1
+#  path_to/test || exit 1
+#  ctest -VV --output-on-failure || exit 1
+
+
+# Installing
+echo "Installing..."
+ninja install || exit 1
 
 cd $PREFIX
-rm -f lib/libgraphite2.la bin/gr2fonttest
+rm -f lib/libgraphite2.la bin/gr2fonttest || exit 1
+
+# Error free exit!
+echo "Error free exit!"
+exit 0
+

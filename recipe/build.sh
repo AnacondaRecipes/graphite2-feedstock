@@ -23,7 +23,7 @@ ninja -j${CPU_COUNT} || exit 1
 
 # Perform tests.
 echo "Testing..."
-ninja test #|| exit 1 # there are failed tests
+ctest -VV --output-on-failure || true # there are failed tests
 
 
 # Installing

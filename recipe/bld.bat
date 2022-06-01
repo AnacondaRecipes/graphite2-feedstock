@@ -25,7 +25,7 @@ if errorlevel 1 exit /b 1
 
 :: Perform tests.
 echo "Testing..."
-ninja test
+ctest -VV --output-on-failure
 :: if errorlevel 1 exit /b 1 there are failed tests
 
 

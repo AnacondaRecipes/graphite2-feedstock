@@ -24,6 +24,20 @@ requirements:
     - cmake
     - ninja-base
 
+test:
+  commands:
+    # Libraries/headers.
+    - test -f $PREFIX/lib/libgraphite2.dylib  # [osx]
+    - test -f $PREFIX/lib/libgraphite2.so  # [linux]
+    - if not exist %PREFIX%\Library\bin\graphite2.dll exit 1 # [win]
+    - test -f $PREFIX/include/graphite2/Segment.h  # [not win]
+    - test -f $PREFIX/include/graphite2/Font.h  # [not win]
+    - test -f $PREFIX/include/graphite2/Types.h  # [not win]
+    - test -f $PREFIX/include/graphite2/Log.h  # [not win]
+    - if not exist %PREFIX%\Library\include\graphite2\Segment.h exit 1 # [win]
+    - if not exist %PREFIX%\Library\include\graphite2\Font.h exit 1 # [win]
+    - if not exist %PREFIX%\Library\include\graphite2\Types.h exit 1 # [win]
+    - if not exist %PREFIX%\Library\include\graphite2\Log.h exit 1 # [win]
 
 about:
   home: https://graphite.sil.org/
